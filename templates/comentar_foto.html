@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comentar Foto</title>
+</head>
+<body>
+    <h1>Comentar Foto</h1>
+    <p>{{ foto.descricao }}</p>
+    <img src="{{ foto.imagem.url }}" alt="Foto" width="300">
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar Comentário</button>
+    </form>
+    
+    <p><a href="{% url 'galeria' %}">Voltar para a Galeria</a></p>
+</body>
+</html>

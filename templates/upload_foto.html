@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload de Foto</title>
+</head>
+<body>
+    <h2>Enviar Foto</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+    <p><a href="{% url 'home' %}">Voltar</a></p>
+</body>
+</html>

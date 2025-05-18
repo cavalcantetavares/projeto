@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aprovação de Fotos</title>
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Fotos Pendentes de Aprovação</h1>
+    
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% for foto in fotos %}
+        <div style="margin-bottom: 30px; border:1px solid #ccc; padding:10px;">
+            <img src="{{ foto.imagem.url }}" alt="Foto" width="300">
+            <p>{{ foto.descricao }}</p>
+            <p>Enviada por: {{ foto.autor.username }}</p>
+            
+            <form method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="foto_id" value="{{ foto.id }}">
+                <button type="submit" name="acao" value="aprovar">Aprovar</button>
+            </form>
+
+            <form method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="foto_id" value="{{ foto.id }}">
+                <button type="submit" name="acao" value="rejeitar">Rejeitar</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>Não há fotos para aprovar.</p>
+    {% endfor %}
+
+    <p><a href="{% url 'home' %}">Voltar</a></p>
+</body>
+</html>
+

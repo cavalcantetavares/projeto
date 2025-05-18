@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Galeria de Amigos</title>
+</head>
+<body>
+    <h1>Bem-vindo, {{ request.user.username }}!</h1>
+    <p><a href="{% url 'logout' %}">Sair</a></p>
+</body>
+</html>

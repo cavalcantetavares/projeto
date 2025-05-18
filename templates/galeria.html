@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Galeria de Fotos</title>
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Galeria de Fotos Aprovadas</h1>
+    <div class="photo-card">
+        {% for foto in fotos %}
+            <div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+                <img src="{{ foto.imagem.url }}" alt="Foto" width="300">
+                <p>{{ foto.descricao }}</p>
+                <p>Enviada por: {{ foto.autor.username }}</p>
+
+                <p>Curtidas: {{ foto.curtidas.count }}</p>
+
+                <form method="post" action="{% url 'curtir_foto' foto.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Curtir</button>
+                </form>
+
+                <p>Comentários:</p>
+                <ul>
+                    {% for comentario in foto.comentarios.all %}
+                        <li><strong>{{ comentario.autor.username }}:</strong> {{ comentario.texto }}</li>
+                    {% empty %}
+                        <li>Sem comentários ainda.</li>
+                    {% endfor %}
+                </ul>
+
+                <p><a href="{% url 'comentar_foto' foto.id %}">Adicionar comentário</a></p>
+            </div>
+        {% empty %}
+            <p>Nenhuma foto aprovada ainda.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
