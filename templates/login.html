@@ -6,6 +6,7 @@
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
+    <div class="login-container">
     <h2>Login</h2>
     <form method="post">
       {% csrf_token %}
@@ -13,6 +14,6 @@
       <button type="submit">Entrar</button>
     </form>
     <p>Não tem conta? <a href="{% url 'registrar' %}">Cadastre-se aqui</a></p>
-
+    </div>
   </body>
 </html>

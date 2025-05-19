@@ -1,8 +1,13 @@
+body, html{
+  height: 100%;
+  margin: 0;
+}
 body {
+  display: flex;
+  align-items: center;
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
-  margin: 0;
-  padding: 0;
+  
 }
 
 .container {
@@ -67,4 +72,16 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+.login-container {
+  background:white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1) ;
+  width: 300px;
+  box-sizing: border-box;
+}
+.login-container button {
+  
 }
