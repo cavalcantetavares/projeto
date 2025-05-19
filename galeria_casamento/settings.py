@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+LANGUAGE_CODE = 'pt-br'
+USE_I18N = True
+USE_TZ = True
+USE_L10N = True
 
 from pathlib import Path
 

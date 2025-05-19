@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from .forms import ComentarioForm
 from django.shortcuts import get_object_or_404
+from .forms import RegistroForm
 
 
 @login_required
@@ -32,20 +33,7 @@ def galeria(request):
 
 def is_casal(user):
     return user.is_superuser
-
-#@user_passes_test(is_casal)
-#def aprovacao_fotos(request):
-#    if request.method == 'POST':
-#        foto_id = request.POST.get('foto_id')
-#       acao = request.Post.get('acao')
-#        foto = Foto.objects.get(id=foto_id)
-#        if acao == 'aprovar':
-#            foto.aprovada = True
-#            foto.save()
-#       elif acao == 'rejeitar':
-#            foto.delete()
-#        return redirect('aprovacao_fotos')
-#    return render(request, 'aprovacao_fotos.html', {'fotos': fotos_pendentes})            
+       
 
 
 def is_casal(user):
@@ -109,3 +97,16 @@ def curtir_foto(request, foto_id):
         foto.curtidas.create(usuario=usuario)
     
     return redirect('galeria')
+
+
+def registrar(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Cadastro realizado com sucesso! Faça login .")
+            return redirect('login')
+    else:
+        form = RegistroForm()
+    return render(request, 'registrar.html', {'form': form})          
+            
