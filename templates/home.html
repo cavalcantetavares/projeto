@@ -1,14 +1,60 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Galeria de Amigos</title>
-</head>
-<body>
-    <h1>Bem-vindo, {{ request.user.username }}!</h1>
-    
-    <form method="post" action="{% url 'logout' %}" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Sair</button>
-      </form>
-</body>
-</html>
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="container my-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Bem-vindo, {{ request.user.username }}!</h1>
+      <a href="{% url 'logout' %}" class="btn btn-danger">Sair</a>
+    </div>
+
+    <div class="mb-4">
+      <a href="{% url 'upload_foto' %}" class="btn btn-success me-2">Enviar Foto</a>
+      {% if request.user.is_superuser %}
+        <a href="{% url 'aprovacao_fotos' %}" class="btn btn-warning">Aprovar Fotos</a>
+      {% endif %}
+    </div>
+
+    <h2>Galeria de Fotos</h2>
+    <div class="row">
+      {% if fotos %}
+        {% for foto in fotos %}
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="{{ foto.imagem.url }}" class="card-img-top" alt="Foto">
+              <div class="card-body">
+                <p class="card-text">{{ foto.descricao }}</p>
+                <p><small>Enviada por: {{ foto.autor.username }}</small></p>
+
+                <p>Curtidas: {{ foto.curtidas.count }}</p>
+                <form method="post" action="{% url 'curtir_foto' foto.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary btn-sm">Curtir</button>
+                </form>
+
+                <p>Comentários:</p>
+                <ul>
+                  {% for comentario in foto.comentarios.all %}
+                    <li><strong>{{ comentario.autor.username }}:</strong> {{ comentario.texto }}</li>
+                  {% empty %}
+                    <li>Sem comentários ainda.</li>
+                  {% endfor %}
+                </ul>
+
+                <a href="{% url 'comentar_foto' foto.id %}" class="btn btn-link btn-sm">Adicionar comentário</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>Não há fotos aprovadas.</p>
+      {% endif %}
+    </div>
+
+  </div>
+
+
+
+
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User  # Usuário padrão do Django
+from django.utils import timezone
+
 
 class Grupo(models.Model):
     nome = models.CharField(max_length=100)
@@ -15,7 +17,7 @@ class Foto(models.Model):
     descricao = models.TextField(blank=True)
     imagem = models.ImageField(upload_to='fotos/')
     grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE, null=True, blank=True)
-
+    data_criacao = models.DateTimeField(default=timezone.now)
     aprovada = models.BooleanField(default=False)
 
     def __str__(self):
