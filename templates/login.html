@@ -2,13 +2,30 @@
   
 
 {% block content %}
-  <div class="container">
-    <h2>Login</h2>
-    <form method="post">
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
+    <h2 class="card-title text-center mb-4">Login</h2>
+
+    <form method="post" novalidate>
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Entrar</button>
+      
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Usuário</label>
+        <input type="text" class="form-control" id="id_username" name="username" required autofocus maxlength="150" />
+      </div>
+
+      <div class="mb-3">
+        <label for="id_password" class="form-label">Senha</label>
+        <input type="password" class="form-control" id="id_password" name="password" required />
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Entrar</button>
     </form>
-    <p>Não tem conta? <a href="{% url 'registrar' %}">Cadastre-se aqui</a></p>
+
+    <p class="text-center mt-3 mb-0">
+      Não tem uma conta? <a href="{% url 'registrar' %}">Cadastre-se</a>
+    </p>
+  </div>
+</div>
 {% endblock %}
 
