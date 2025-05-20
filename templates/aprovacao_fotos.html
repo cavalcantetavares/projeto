@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Aprovação de Fotos</title>
-     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <h1>Fotos Pendentes de Aprovação</h1>
@@ -33,12 +33,20 @@
                 <input type="hidden" name="foto_id" value="{{ foto.id }}">
                 <button type="submit" name="acao" value="rejeitar">Rejeitar</button>
             </form>
+
+            {% if request.user.is_superuser %}
+            <form method="post" action="{% url 'deletar_foto' foto.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('Tem certeza que deseja deletar esta foto?');" class="btn btn-danger btn-sm">Excluir</button>
+            </form>
+            {% endif %}
         </div>
     {% empty %}
         <p>Não há fotos para aprovar.</p>
     {% endfor %}
-
+   
     <p><a href="{% url 'home' %}">Voltar</a></p>
 </body>
 </html>
+
 

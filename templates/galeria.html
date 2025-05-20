@@ -31,6 +31,12 @@
                 </ul>
 
                 <p><a href="{% url 'comentar_foto' foto.id %}">Adicionar comentário</a></p>
+                {% if request.user.is_superuser %}
+                <form method="post" action="{% url 'deletar_foto' foto.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Tem certeza que deseja deletar esta foto?');" class="btn btn-danger btn-sm">Excluir</button>
+                </form>
+                {% endif %}
             </div>
         {% empty %}
             <p>Nenhuma foto aprovada ainda.</p>

@@ -7,6 +7,8 @@ from django.contrib import messages
 from .forms import ComentarioForm
 from django.shortcuts import get_object_or_404
 from .forms import RegistroForm
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404, redirect
 
 
 @login_required
@@ -109,4 +111,23 @@ def registrar(request):
     else:
         form = RegistroForm()
     return render(request, 'registrar.html', {'form': form})          
-            
+
+@staff_member_required
+def deletar_foto(request, foto_id):
+    foto = get_object_or_404(Foto, id=foto_id)
+    if request.method == 'POST':
+        foto.delete()
+        messages.success(request, "Foto deletada com sucesso.")
+        return redirect('aprovacao_fotos')
+
+def is_superuser(user):
+    return user.is_superuser
+
+@user_passes_test(is_superuser)
+def deletar_foto(request, foto_id):    
+    foto = get_object_or_404(Foto, id=foto_id)
+    if request.method == 'POST':
+        foto.delete()        
+        return redirect('galeria')   
+    return redirect('galeria')
+                        
