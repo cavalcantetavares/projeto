@@ -105,6 +105,8 @@ def registrar(request):
             form.save()
             messages.success(request, "Cadastro realizado com sucesso! Faça login.")
             return redirect('login')
+        else:
+            messages.error(request, "Erro no cadastro. Verifique os dados.")
     else:
         form = RegistroForm()
     return render(request, 'registrar.html', {'form': form})

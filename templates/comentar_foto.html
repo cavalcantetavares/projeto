@@ -10,7 +10,7 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="bnt btn-success">Enviar Comentário</button>
+    <button type="submit" class="btn btn-success">Enviar Comentário</button>
 </form>
 
 <p><a href="{% url 'galeria' %}">Voltar para a Galeria</a></p>

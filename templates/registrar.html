@@ -3,12 +3,18 @@
 
 {%block content %}
  <h2>Cadastro</h2>
-<form method="post">
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+<form method="post" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="bnt btn-success">Cadastrar</button>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
-<p><a href="{% url 'login' %}">Já tem conta? Faça login</a></p>
-
 
 {% endblock %}

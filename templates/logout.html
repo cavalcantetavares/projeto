@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Logout</title>
-        
-    </head>
-    <body>
-        <h2>Você saiu da sua conta.</h2>
-        <p><a href="{% url 'login' %}">Clique aqui para entrar novamente</a></p>
-    </body>
-  </html>  
+{% extends 'base.html'%}
+{% block content %} 
+<h2>Você saiu da sua conta.</h2>
+  <p><a href="{% url 'login' %}">Clique aqui para entrar novamente</a></p>
+  
+ {% endblock} 
+  

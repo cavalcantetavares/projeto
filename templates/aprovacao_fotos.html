@@ -1,11 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Aprovação de Fotos</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Fotos Pendentes de Aprovação</h1>
     
     {% if messages %}
@@ -25,13 +20,13 @@
             <form method="post" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="foto_id" value="{{ foto.id }}">
-                <button type="submit" name="acao" value="aprovar">Aprovar</button>
+                <button type="submit" name="acao" value="aprovar" class="btn btn-warning">Aprovar</button>
             </form>
 
             <form method="post" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="foto_id" value="{{ foto.id }}">
-                <button type="submit" name="acao" value="rejeitar">Rejeitar</button>
+                <button type="submit" name="acao" value="rejeitar" class="btn btn-primary">Rejeitar</button>
             </form>
 
             {% if request.user.is_superuser %}
@@ -45,8 +40,7 @@
         <p>Não há fotos para aprovar.</p>
     {% endfor %}
    
-    <p><a href="{% url 'home' %}">Voltar</a></p>
-</body>
-</html>
+    <p><a href="{% url 'home' %}"><button type="submit" class="btn btn-success">Voltar</button></a></p>
+{% endblock%}
 
 
