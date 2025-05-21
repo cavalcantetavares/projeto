@@ -20,3 +20,7 @@ class RegistroForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email','password1', 'password2')
+    
+    def _init_(self, *args, **kwargs):
+        super()._init_(*args, **kwargs)
+        self.fields['username'].help_text = None
